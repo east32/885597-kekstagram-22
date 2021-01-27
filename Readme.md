@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм»
 
 * Студент: [Илья Крючков](https://up.htmlacademy.ru/javascript/22/user/885597).
-* Наставник: [Анастасия Ерёмина](https://htmlacademy.ru/profile/id618163).
+* Наставник: [Анастасия Ерёмина](https://up.htmlacademy.ru/javascript/22/user/618163).
 
 ---
 
