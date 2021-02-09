@@ -57,30 +57,34 @@ const getAvatarPath = function () {
   return `img/avatar-${getRandomInt(1, 6)}.svg`
 };
 
-const getUniqId = function () {
-  const idArray = [];
-  for(let i = 0;i < 25; i++) {
-    idArray.push(i);
+const idArray = [];
+
+const geteUniqId = function () {
+  const rand = getRandomInt(0, 25);
+  if (!idArray.includes(rand)) {
+    idArray.push(rand);
   }
-  return getRandomArrayEl(idArray);
+  return rand;
+}
 
-};
-
-const getActualComments = function () {
+const actualCommentsStrings = function () {
   const actualCommentsStrings = [];
   for(let i = 0;i < getRandomInt(1, 2); i++ ) {
     actualCommentsStrings.push(COMMENTS[getRandomInt(0, COMMENTS.length-1)])}
-  return actualCommentsStrings;
+  const actualComments = actualCommentsStrings.join(' ');
+  return actualComments;
 };
 
-const generateRandomComment = function () {
+
+
+const generateRandomCommentArray = function () {
   const commentsArray = [];
   const commentsCounter = getRandomInt(1, 6);
   for (let i = 0; i < commentsCounter; i++) {
     const newComment = {
-      id: getUniqId(),
+      id: geteUniqId(),
       avatar: getAvatarPath(),
-      message: getActualComments(),
+      message: actualCommentsStrings(),
       name : getRandomArrayEl(COMMENTATOR_NAMES),
     };
     commentsArray.push(newComment);
@@ -88,19 +92,19 @@ const generateRandomComment = function () {
   return commentsArray;
 };
 
-const generateObject = function () {
+const generateObjectsArray = function () {
   const objectsArray = [];
   for (let i = 0; i < SIMILLAR_OBJECTS_AMOUNT; i++) {
     const newObject = {
-      id: getUniqId(),
-      url: `photos/${getUniqId()}.jpg`,
+      id: i + (i*i),
+      url: `photos/${i + i}.jpg`,
       description: getRandomArrayEl(DESCPRIPTION),
       likes: getRandomInt(15, 200),
-      comments: generateRandomComment(),
+      comments: generateRandomCommentArray(),
     };
     objectsArray.push(newObject);
   }
   return objectsArray;
 }
 
-generateObject();
+generateObjectsArray();
