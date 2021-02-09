@@ -75,9 +75,7 @@ const actualCommentsStrings = function () {
   return actualComments;
 };
 
-
-
-const generateRandomCommentsArray = function () {
+const generateRandomCommentArray = function () {
   const commentsArray = [];
   const commentsCounter = getRandomInt(1, 6);
   for (let i = 0; i < commentsCounter; i++) {
@@ -100,7 +98,7 @@ const generateObjectsArray = function () {
       url: `photos/${i + i}.jpg`,
       description: getRandomArrayEl(DESCPRIPTION),
       likes: getRandomInt(15, 200),
-      comments: generateRandomCommentsArray(),
+      comments: generateRandomCommentArray(),
     };
     objectsArray.push(newObject);
   }
