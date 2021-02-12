@@ -59,15 +59,15 @@ const getAvatarPath = function () {
 
 const idArray = [];
 
-const geteUniqId = function () {
-  const rand = getRandomInt(0, 25);
+const getUniqId = function () {
+  const rand = getRandomInt(0, 10000);
   if (!idArray.includes(rand)) {
     idArray.push(rand);
   }
   return rand;
 }
 
-const actualCommentsStrings = function () {
+const getActualCommentsStrings = function () {
   const actualCommentsStrings = [];
   for(let i = 0;i < getRandomInt(1, 2); i++ ) {
     actualCommentsStrings.push(COMMENTS[getRandomInt(0, COMMENTS.length-1)])}
@@ -75,16 +75,14 @@ const actualCommentsStrings = function () {
   return actualComments;
 };
 
-
-
-const generateRandomCommentArray = function () {
+const generateRandomCommentsArray = function () {
   const commentsArray = [];
   const commentsCounter = getRandomInt(1, 6);
   for (let i = 0; i < commentsCounter; i++) {
     const newComment = {
-      id: geteUniqId(),
+      id: getUniqId(),
       avatar: getAvatarPath(),
-      message: actualCommentsStrings(),
+      message: getActualCommentsStrings(),
       name : getRandomArrayEl(COMMENTATOR_NAMES),
     };
     commentsArray.push(newComment);
@@ -96,11 +94,11 @@ const generateObjectsArray = function () {
   const objectsArray = [];
   for (let i = 0; i < SIMILLAR_OBJECTS_AMOUNT; i++) {
     const newObject = {
-      id: i + (i*i),
-      url: `photos/${i + i}.jpg`,
+      id: i + 1,
+      url: `photos/${i + 1}.jpg`,
       description: getRandomArrayEl(DESCPRIPTION),
       likes: getRandomInt(15, 200),
-      comments: generateRandomCommentArray(),
+      comments: generateRandomCommentsArray(),
     };
     objectsArray.push(newObject);
   }
