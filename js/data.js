@@ -38,8 +38,6 @@ const generateRandomCommentsArray = function () {
   return commentsArray;
 };
 
-let objectsArray;
-
 const generateObjectsArray = function () {
   const objectsArray = [];
   for (let i = 0; i < SIMILLAR_OBJECTS_AMOUNT; i++) {
@@ -57,4 +55,4 @@ const generateObjectsArray = function () {
 
 generateObjectsArray();
 
-export default objectsArray;
+export default generateObjectsArray;

@@ -1,10 +1,10 @@
 import './const.js';
-import objectsArray from './data.js';
+import generateObjectsArray from './data.js';
 
 const usersPictures = document.querySelector('.pictures');
 const pictureTemplateFragmet = document.querySelector('#picture').content.querySelector('.picture');
-const usersComments = pictureTemplateFragmet.querySelector('.picture_comments');
-const usersLikes = pictureTemplateFragmet.querySelector('.picture_likes');
+const usersComments = pictureTemplateFragmet.querySelector('.picture__comments');
+const usersLikes = pictureTemplateFragmet.querySelector('.picture__likes');
 
 const createUsersImages = function ({url, comments, likes}) {
   const usersImages = pictureTemplateFragmet.cloneNode(true);
@@ -17,7 +17,7 @@ const createUsersImages = function ({url, comments, likes}) {
 
 const renderUsersImages = function () {
   const fragment = document.createDocumentFragment();
-  objectsArray.forEach((item) => {
+  generateObjectsArray.objectsArray.forEach((item) => {
     fragment.appendChild(createUsersImages(item));
   });
 
@@ -27,3 +27,6 @@ const renderUsersImages = function () {
 
 
 renderUsersImages();
+
+
+
