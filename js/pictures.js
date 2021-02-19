@@ -9,7 +9,7 @@ const usersLikes = pictureTemplateFragmet.querySelector('.picture__likes');
 const createUsersImages = function ({url, comments, likes}) {
   const usersImages = pictureTemplateFragmet.cloneNode(true);
   usersImages.querySelector('.picture__img').src = url;
-  usersComments.textContent = comments;
+  usersComments.textContent = comments.length;
   usersLikes.textContent = likes;
 
   return usersImages;
@@ -17,7 +17,7 @@ const createUsersImages = function ({url, comments, likes}) {
 
 const renderUsersImages = function () {
   const fragment = document.createDocumentFragment();
-  generateObjectsArray.objectsArray.forEach((item) => {
+  generateObjectsArray().forEach((item) => {
     fragment.appendChild(createUsersImages(item));
   });
 
