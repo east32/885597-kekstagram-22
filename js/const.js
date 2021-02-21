@@ -1,5 +1,3 @@
-import './data.js';
-
 const SIMILLAR_OBJECTS_AMOUNT = 25;
 
 const COMMENTATOR_NAMES = [
