@@ -55,4 +55,4 @@ const generateObjectsArray = function () {
 
 generateObjectsArray();
 
-export {generateObjectsArray};
+export default generateObjectsArray;
