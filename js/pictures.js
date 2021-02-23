@@ -1,5 +1,6 @@
 import './const.js';
 import generateObjectsArray from './data.js';
+import openBigPicture from './big-picture.js';
 
 const usersPictures = document.querySelector('.pictures');
 const pictureTemplateFragmet = document.querySelector('#picture').content.querySelector('.picture');
@@ -11,7 +12,9 @@ const createUsersImages = function ({url, comments, likes}) {
   usersImages.querySelector('.picture__img').src = url;
   usersComments.textContent = comments.length;
   usersLikes.textContent = likes;
-
+  usersImages.addEventListener('click', () => {
+    openBigPicture({url, comments, likes});
+  });
   return usersImages;
 };
 
