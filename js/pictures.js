@@ -4,18 +4,19 @@ import openBigPicture from './big-picture.js';
 
 const usersPictures = document.querySelector('.pictures');
 const pictureTemplateFragmet = document.querySelector('#picture').content.querySelector('.picture');
-const usersComments = pictureTemplateFragmet.querySelector('.picture__comments');
-const usersLikes = pictureTemplateFragmet.querySelector('.picture__likes');
+const showBigPicture = document.querySelector('.big-picture');
 
-const createUsersImages = function ({url, comments, likes}) {
-  const usersImages = pictureTemplateFragmet.cloneNode(true);
-  usersImages.querySelector('.picture__img').src = url;
-  usersComments.textContent = comments.length;
-  usersLikes.textContent = likes;
-  usersImages.addEventListener('click', () => {
-    openBigPicture({url, comments, likes});
+const createUsersImages = function ({url, comments, likes, description}) {
+  const usersImage = pictureTemplateFragmet.cloneNode(true);
+  usersImage.querySelector('.picture__img').src = url;
+  usersImage.querySelector('.picture__comments').textContent = comments.length;
+  usersImage.querySelector('.picture__likes').textContent = likes;
+  showBigPicture.querySelector('.social__caption').textContent = description;
+  usersImage.addEventListener('click', () => {
+
+    openBigPicture({url, comments, likes, description});
   });
-  return usersImages;
+  return usersImage;
 };
 
 const renderUsersImages = function () {
@@ -30,6 +31,3 @@ const renderUsersImages = function () {
 
 
 renderUsersImages();
-
-
-
