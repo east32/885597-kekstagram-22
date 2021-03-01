@@ -4,14 +4,13 @@ import openBigPicture from './big-picture.js';
 
 const usersPictures = document.querySelector('.pictures');
 const pictureTemplateFragmet = document.querySelector('#picture').content.querySelector('.picture');
-const showBigPicture = document.querySelector('.big-picture');
+
 
 const createUsersImages = function ({url, comments, likes, description}) {
   const usersImage = pictureTemplateFragmet.cloneNode(true);
   usersImage.querySelector('.picture__img').src = url;
   usersImage.querySelector('.picture__comments').textContent = comments.length;
   usersImage.querySelector('.picture__likes').textContent = likes;
-  showBigPicture.querySelector('.social__caption').textContent = description;
   usersImage.addEventListener('click', () => {
 
     openBigPicture({url, comments, likes, description});
