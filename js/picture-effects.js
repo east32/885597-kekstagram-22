@@ -1,4 +1,4 @@
-import {uploadPreviewImg} from 'picture-upload.js';
+import {uploadPreviewImg} from './picture-upload.js';
 
 const sliderElement = document.querySelector('.effect-level__slider');
 const effectValue = document.querySelector('.effect-level__value');
@@ -90,7 +90,7 @@ window.noUiSlider.create(sliderElement, {
 for(let effectName in effects) {
   document.querySelector(`#effect-${effectName}`).addEventListener('change', () => {
     deleteClass();
-    if (effectName !== '') {
+    if (effectName === 'none') {
       effectValue.value = '';
       uploadPreviewImg.style.filter = '';
       filterSlider.classList.add('hidden');
