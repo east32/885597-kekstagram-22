@@ -76,24 +76,11 @@ const effects = {
   },
 }
 
-window.noUiSlider.create(sliderElement, {
-  range: {
-    min: 0,
-    max: 100,
-  },
-  start: 80,
-  step: 1,
-  connect: 'lower',
-});
-
-
-
 for(let effectName in effects) {
-  filterSlider.classList.add('hidden');
   document.querySelector(`#effect-${effectName}`).addEventListener('change', () => {
     deleteClass();
     if (effectName === 'none') {
-      effectValue.value = '';
+      effectValue.setAttribute('value', '');
       uploadPreviewImg.style.filter = '';
       filterSlider.classList.add('hidden');
     }
@@ -101,7 +88,7 @@ for(let effectName in effects) {
       filterSlider.classList.remove('hidden');
       uploadPreviewImg.classList.add(`effects__preview--${effectName}`);
       sliderElement.noUiSlider.on('update', (values, handle) => {
-        effectValue.value = values[handle];
+        effectValue.setAttribute('value', values[handle]);
         uploadPreviewImg.style.filter = effects[effectName].getFilterStyle(effectValue.value);
       });
 
@@ -109,3 +96,5 @@ for(let effectName in effects) {
     }
   });
 }
+
+export {filterSlider, sliderElement };

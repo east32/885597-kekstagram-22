@@ -1,3 +1,5 @@
+import {sliderElement, filterSlider} from './picture-effects.js';
+
 const formOverlay = document.querySelector('.img-upload__overlay');
 const formOverlayClose = formOverlay.querySelector('.img-upload__cancel');
 const FormUpload = document.querySelector('#upload-file');
@@ -18,8 +20,20 @@ const onFormButtonClose = function () {
 scaleControlBigger.disabled = true;
 
 FormUpload.addEventListener('change', () => {
+  filterSlider.classList.add('hidden');
   formOverlay.classList.remove('hidden');
   document.querySelector('body').classList.add('modal-open');
+  window.noUiSlider.create(sliderElement, {
+    range: {
+      min: 0,
+      max: 100,
+    },
+    start: 80,
+    step: 1,
+    connect: 'lower',
+
+  });
+
 });
 
 formOverlayClose.addEventListener('click', () => {
