@@ -87,7 +87,9 @@ window.noUiSlider.create(sliderElement, {
 });
 
 
+
 for(let effectName in effects) {
+  filterSlider.classList.add('hidden');
   document.querySelector(`#effect-${effectName}`).addEventListener('change', () => {
     deleteClass();
     if (effectName === 'none') {

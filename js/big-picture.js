@@ -40,7 +40,6 @@ const openBigPicture = function (image) {
 
 }
 
-
 const closeBigPicture = function () {
   document.body.classList.remove('modal-open');
   bigPicture.classList.add('hidden');

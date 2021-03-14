@@ -6,25 +6,31 @@ const scaleControlSmaller = formOverlay.querySelector('.scale__control--smaller'
 const scaleControlBigger = formOverlay.querySelector('.scale__control--bigger');
 const uploadPreviewImg = formOverlay.querySelector('.img-upload__preview').querySelector('img');
 
+const onFormButtonClose = function () {
+  formOverlay.classList.add('hidden');
+  document.querySelector('body').classList.remove('modal-open');
+  FormUpload.value = '';
+  uploadPreviewImg.style.transform = 'scale(1)';
+  uploadPreviewImg.style.filter = 'none';
+  scaleControlValue.value = '100%' ;
+};
+
+scaleControlBigger.disabled = true;
 
 FormUpload.addEventListener('change', () => {
   formOverlay.classList.remove('hidden');
   document.querySelector('body').classList.add('modal-open');
+});
 
-  formOverlayClose.addEventListener('click', () => {
-    formOverlay.classList.add('hidden');
-    document.querySelector('body').classList.remove('modal-open');
-    FormUpload.value = '';
-  });
+formOverlayClose.addEventListener('click', () => {
+  onFormButtonClose();
 
-  document.addEventListener('keydown', (evt) => {
-    if (evt.key === ('Escape' || 'Esc')) {
-      evt.preventDefault();
-      formOverlay.classList.add('hidden');
-      document.querySelector('body').classList.remove('modal-open');
-      FormUpload.value = '';
-    }
-  });
+});
+
+document.addEventListener('keydown', (evt) => {
+  if (evt.key === ('Escape' || 'Esc')) {
+    onFormButtonClose();
+  }
 });
 
 scaleControlSmaller.addEventListener('click', () => {
