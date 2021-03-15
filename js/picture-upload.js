@@ -15,7 +15,9 @@ const onFormButtonClose = function () {
   uploadPreviewImg.style.transform = 'scale(1)';
   uploadPreviewImg.style.filter = 'none';
   scaleControlValue.value = '100%' ;
+  sliderElement.noUiSlider.destroy();
 };
+
 
 scaleControlBigger.disabled = true;
 
