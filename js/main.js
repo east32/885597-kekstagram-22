@@ -5,4 +5,4 @@ import './pictures.js';
 import './big-picture.js';
 import './picture-upload.js';
 import './picture-effects.js';
-
+import './form.js';
