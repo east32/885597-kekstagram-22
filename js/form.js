@@ -1,6 +1,7 @@
-import {HASH_TAG_MAX_LENGTH_ALL, HASH_TAG_MAX_LENGTH} from './const.js';
+import {HASH_TAG_MAX_LENGTH_ALL, HASH_TAG_MAX_LENGTH, REGULAR, COMMENT_MAX_LENGTH} from './const.js';
 
 const hashTags = document.querySelector('.text__hashtags');
+const textDescription = document.querySelector('.text__description');
 
 function findDuplicates(arr) {
   return arr.filter((item, index) => arr.indexOf(item) != index);
@@ -14,7 +15,6 @@ hashTags.addEventListener('input', () => {
   const hashTagsValue = hashTags.value.split(' ');
 
   for (let item of hashTagsValue) {
-    let regular = /^#[a-z0-9]+$/i;
     if (item[0] !== '#') {
       hashTags.setCustomValidity('Начни с #');
     }
@@ -35,7 +35,7 @@ hashTags.addEventListener('input', () => {
       hashTags.setCustomValidity('Нельзя использовать одинаковые ХешТеги');
     }
 
-    else if (regular.test(item) !== true) {
+    else if (REGULAR.test(item) !== true) {
       hashTags.setCustomValidity('Нельзя использовать специальные символы');
     }
 
@@ -44,4 +44,13 @@ hashTags.addEventListener('input', () => {
     }
     hashTags.reportValidity();
   }
+});
+
+textDescription.addEventListener('input', () => {
+  if (textDescription.value.length >= COMMENT_MAX_LENGTH) {
+    textDescription.setCustomValidity(`Максимальная длина сообщения ${COMMENT_MAX_LENGTH}`);
+  } else {
+    textDescription.setCustomValidity('');
+  }
+  textDescription.reportValidity();
 });
