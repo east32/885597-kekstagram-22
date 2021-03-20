@@ -1,4 +1,5 @@
 import {sliderElement, filterSlider} from './picture-effects.js';
+import {ESC_BUTTON, ESCAPE_BUTTON} from './const.js';
 
 const formOverlay = document.querySelector('.img-upload__overlay');
 const formOverlayClose = formOverlay.querySelector('.img-upload__cancel');
@@ -7,6 +8,8 @@ const scaleControlValue = formOverlay.querySelector('.scale__control--value');
 const scaleControlSmaller = formOverlay.querySelector('.scale__control--smaller');
 const scaleControlBigger = formOverlay.querySelector('.scale__control--bigger');
 const uploadPreviewImg = formOverlay.querySelector('.img-upload__preview').querySelector('img');
+const inputHashTags = document.querySelector('.text__hashtags');
+const inputTextComment = document.querySelector('.text__description');
 
 const onFormButtonClose = function () {
   formOverlay.classList.add('hidden');
@@ -16,7 +19,34 @@ const onFormButtonClose = function () {
   uploadPreviewImg.style.filter = 'none';
   scaleControlValue.value = '100%' ;
   sliderElement.noUiSlider.destroy();
+  FormUpload.removeEventListener('change', () => {
+    formOverlay.classList.remove('hidden');
+    document.querySelector('body').classList.add('modal-open');
+
+    formOverlayClose.addEventListener('click', () => {
+      onFormButtonClose();
+    });
+    document.addEventListener('keydown', (evt) => {
+      if ([ESC_BUTTON, ESCAPE_BUTTON].includes(evt.key) && document.activeElement !== inputHashTags && document.activeElement !== inputTextComment) {
+        onFormButtonClose();
+      }
+    });
+  });
+  scaleControlSmaller.removeEventListener('click', () => {
+    scaleControlValue.value = parseInt(scaleControlValue.value) - 25 + '%';
+    uploadPreviewImg.style.transform = `scale(${parseInt(scaleControlValue.value) / 100})`;
+    scaleControlSmaller.disabled = scaleControlValue.value === '25%';
+    scaleControlBigger.disabled = false;
+  });
+
+  scaleControlBigger.removeEventListener('click', () => {
+    scaleControlValue.value = parseInt(scaleControlValue.value) + 25 +'%';
+    uploadPreviewImg.style.transform = `scale(${parseInt(scaleControlValue.value) / 100})`;
+    scaleControlBigger.disabled = scaleControlValue.value === '100%';
+    scaleControlSmaller.disabled = false;
+  });
 };
+
 
 
 scaleControlBigger.disabled = true;
@@ -44,7 +74,7 @@ formOverlayClose.addEventListener('click', () => {
 });
 
 document.addEventListener('keydown', (evt) => {
-  if (evt.key === ('Escape' || 'Esc')) {
+  if ([ESC_BUTTON, ESCAPE_BUTTON].includes(evt.key) && document.activeElement !== inputHashTags && document.activeElement !== inputTextComment) {
     onFormButtonClose();
   }
 });
