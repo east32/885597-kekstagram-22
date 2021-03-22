@@ -116,4 +116,4 @@ scaleControlBigger.addEventListener('click', () => {
 });
 
 
-export {uploadPreviewImg};
+export {uploadPreviewImg, onFormButtonClose};

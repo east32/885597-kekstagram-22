@@ -30,3 +30,5 @@ const renderUsersImages = function () {
 
 
 renderUsersImages();
+
+export {createUsersImages};
