@@ -1,34 +1,72 @@
-import './const.js';
-import generateObjectsArray from './data.js';
-import openBigPicture from './big-picture.js';
+import { ESC_BUTTON, ESCAPE_BUTTON} from './const.js';
+const pictures = document.querySelector('.pictures');
+const bigPicture = document.querySelector('.big-picture');
+const documentBody = document.querySelector('body');
+const bigPictureComments = document.querySelector('.social__comments');
+const bigPictureImg = bigPicture.querySelector('.big-picture__img img');
+const bigPictureLikesCount = bigPicture.querySelector('.likes-count');
+const bigPictureCommentsCount = bigPicture.querySelector('.comments-count');
+const bigPictureCancel = bigPicture.querySelector('#picture-cancel');
 
-const usersPictures = document.querySelector('.pictures');
-const pictureTemplateFragmet = document.querySelector('#picture').content.querySelector('.picture');
+const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
+
+const picturesFragment = document.createDocumentFragment();
 
 
-const createUsersImages = function ({url, comments, likes, description}) {
-  const usersImage = pictureTemplateFragmet.cloneNode(true);
-  usersImage.querySelector('.picture__img').src = url;
-  usersImage.querySelector('.picture__comments').textContent = comments.length;
-  usersImage.querySelector('.picture__likes').textContent = likes;
-  usersImage.addEventListener('click', () => {
+const createCommentsFragment = (comments) => {
+  const commentTemplate = document.querySelector('#comment').content.querySelector('.social__comment');
+  const commentFragment = document.createDocumentFragment();
+  comments.forEach((comment) => {
+    const newComment = commentTemplate.cloneNode(true);
 
-    openBigPicture({url, comments, likes, description});
+    newComment.querySelector('img').src = comment.avatar;
+    newComment.querySelector('img').alt = comment.name;
+    newComment.querySelector('.social__text').textContent = comment.message;
+
+    commentFragment.appendChild(newComment);
   });
-  return usersImage;
-};
 
-const renderUsersImages = function () {
-  const fragment = document.createDocumentFragment();
-  generateObjectsArray().forEach((item) => {
-    fragment.appendChild(createUsersImages(item));
+  return commentFragment;
+}
+
+const anyUsersCard = (imgArray) => {
+  imgArray.forEach((picture) => {
+    const newPicture = pictureTemplate.cloneNode(true);
+
+    newPicture.querySelector('.picture__img').src = picture.url;
+    newPicture.querySelector('.picture__comments').textContent = picture.comments.length;
+    newPicture.querySelector('.picture__likes').textContent = picture.likes;
+
+    newPicture.addEventListener('click', () => {
+      bigPicture.classList.remove('hidden');
+      document.addEventListener('keydown', (evt) => {
+        if (evt.key === ESC_BUTTON || evt.key === ESCAPE_BUTTON) {
+          bigPicture.classList.add('hidden');
+        }
+      });
+      documentBody.classList.add('modal-open');
+      bigPictureImg.src = picture.url;
+      bigPictureLikesCount.textContent = picture.likes;
+      bigPictureCommentsCount.textContent = picture.comments.length;
+      bigPictureComments.innerHTML = '';
+
+      bigPictureComments.appendChild(createCommentsFragment(picture.comments.slice(0, 5)));
+    });
+
+    picturesFragment.appendChild(newPicture);
   });
+  pictures.appendChild(picturesFragment);
+}
+export {anyUsersCard};
 
-  usersPictures.appendChild(fragment)
+bigPictureCancel.addEventListener('click', () => {
+  bigPicture.classList.add('hidden');
+  documentBody.classList.remove('modal-open');
 
-};
-
-
-renderUsersImages();
-
-export {createUsersImages};
+  document.removeEventListener('keydown', (evt) => {
+    if (evt.key === ESC_BUTTON || evt.key === ESCAPE_BUTTON) {
+      documentBody.classList.remove('modal-open');
+      bigPicture.classList.add('hidden');
+    }
+  });
+});

@@ -1,8 +1,7 @@
-import {createUsersImages} from './pictures.js';
-import {onFormButtonClose} from './download-new-picture.js';
+import {anyUsersCard} from './pictures.js';
+import {onFormButtonClose} from './picture-upload.js';
+import { ESC_BUTTON, ESCAPE_BUTTON} from './const.js';
 
-const ESC_BUTTON = 'Esc'; ///////
-const ESCAPE_BUTTON = 'Escape'; /////
 const imgForm = document.querySelector('#upload-select-image');
 const errorTemplate = document.querySelector('#error').content.querySelector('.error');
 const successTemplate = document.querySelector('#success').content.querySelector('.success');
@@ -30,7 +29,7 @@ const onSuccessTemplate = () => {
 fetch('https://22.javascript.pages.academy/kekstagram/data')
   .then((response) => response.json())
   .then((imgArray) => {
-    createUsersImages(imgArray);
+    anyUsersCard(imgArray);
   })
   .catch(() => {
     document.body.innerHTML = '<div class="error"><h1>Error</h1><span>Пожалуйста перезагрузите страницу</span></div>';
@@ -39,8 +38,7 @@ fetch('https://22.javascript.pages.academy/kekstagram/data')
 
 imgForm.addEventListener('submit', (evt) => {
   evt.preventDefault();
-  const formData = new FormData(evt.target);
-
+  const formData = new FormData(evt.target);           /////////////////
   fetch(
     'https://22.javascript.pages.academy/kekstagram',
     {
@@ -50,7 +48,7 @@ imgForm.addEventListener('submit', (evt) => {
   )
     .then(() => {
       onFormButtonClose();
-      document.addEventListener('keydown', onEscClose);
+      document.addEventListener('keydown', onEscClose); ////////////////////////
       document.addEventListener('click', onClickRemove);
     })
     .then(() => {
@@ -58,7 +56,7 @@ imgForm.addEventListener('submit', (evt) => {
       main.appendChild(successTemplate);
     })
     .then(() => {
-      closeSuccessButton.removeEventListener('click', onSuccessTemplate);
+      closeSuccessButton.removeEventListener('click', onSuccessTemplate); ////////////////////
     })
     .catch(() => {
       main.appendChild(errorTemplate);
